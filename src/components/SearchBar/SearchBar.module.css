@@ -1,0 +1,24 @@
+.searchHeader {
+  width: 100%;
+  background-color: rgb(2, 2, 153);
+  height: 44px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.searchInput {
+  width: 100%;
+  padding: 6px;
+  padding-left: 35px;
+}
+
+.searchContainer {
+  position: relative;
+  width: 300px;
+}
+.searchIcon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}

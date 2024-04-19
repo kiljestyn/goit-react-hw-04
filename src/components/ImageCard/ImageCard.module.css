@@ -1,0 +1,23 @@
+.imageInfo {
+  display: flex;
+  font-size: 12px;
+  width: 300px;
+  background-color: #1c0606;
+  color: #ffffff;
+  justify-content: flex-start;
+  padding: 2px 4px 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+  color: black;
+}
+.listItem {
+  width: 350px;
+  height: 300;
+}
+.imgItem {
+  margin-top: 8px;
+}
+.textInfo {
+  margin: 0;
+}
