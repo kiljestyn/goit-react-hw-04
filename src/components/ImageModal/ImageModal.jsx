@@ -11,22 +11,23 @@ const customStyles = {
   },
 };
 
-const ImageModal = ({ isOpen, onRequestClose, selectedImage }) => {
+const ImageModal = ({ modalImg, isOpen, onCloseModal }) => {
   return (
     <div>
       <Modal
         style={customStyles}
         isOpen={isOpen}
-        onRequestClose={onRequestClose}
-        contentLabel="Selected Image"
+        onRequestClose={onCloseModal}
         ariaHideApp={false}
       >
-        <img
-          src={selectedImage}
-          alt="Selected Image"
-          width={800}
-          height={600}
-        />
+        {modalImg && (
+          <img
+            src={modalImg.imgUrl}
+            alt="Selected Image"
+            width={800}
+            height={600}
+          />
+        )}
       </Modal>
     </div>
   );

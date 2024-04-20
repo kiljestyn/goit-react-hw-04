@@ -16,9 +16,17 @@
   position: relative;
   width: 300px;
 }
-.searchIcon {
+/* .searchIcon {
   position: absolute;
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
+} */
+.btnForm {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
 }

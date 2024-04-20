@@ -20,7 +20,10 @@ const SearchBar = ({ onSubmit }) => {
         <>
           <form className={css.searchForm} onSubmit={handleSubmit}>
             <div className={css.searchContainer}>
-              <IoIosSearch className={css.searchIcon} />
+              <button type="submit" className={css.btnForm}>
+                <IoIosSearch className={css.searchIcon} />
+              </button>
+
               <input
                 className={css.searchInput}
                 type="text"

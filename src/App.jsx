@@ -8,27 +8,30 @@ import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
 
-import { requestPictures } from "./services/api";
+import { requestImages } from "./services/api";
 
 function App() {
-  const [pictures, setPictures] = useState(null);
+  const [images, setImages] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [isError, setIsError] = useState(false);
   const [page, setPage] = useState(1);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [selectedImage, setSelectedImage] = useState(null);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [modalImg, setModalImg] = useState(null);
+  const [openCloseModal, setOpenCloseModal] = useState(false);
 
   useEffect(() => {
-    if (query.length === 0) return;
+    if (!query.length) return;
 
-    const fetchPictures = async () => {
+    const fetchImages = async () => {
       try {
         setIsLoading(true);
-        fetchPictures;
-        const data = await requestPictures(query, page);
-        setPictures((prevPictures) =>
-          prevPictures !== null ? [...prevPictures, ...data] : [...data]
+        if (page === 1) setImages(null);
+        const data = await requestImages(query, page);
+        setImages((prevImages) =>
+          prevImages !== null ? [...prevImages, ...data] : [...data]
         );
       } catch (error) {
         setIsError(true);
@@ -37,7 +40,7 @@ function App() {
       }
     };
 
-    fetchPictures();
+    fetchImages();
   }, [query, page]);
 
   const onSetSearchQuery = (searchQuery) => {
@@ -48,16 +51,20 @@ function App() {
   const onAddPage = () => {
     setPage(page + 1);
   };
-
-  const openModal = (picture) => {
-    setSelectedImage(picture);
-    setIsModalOpen(true);
+  const openModal = (img) => {
+    setModalImg(img);
+    setOpenCloseModal(true);
   };
+  const closeModal = () => setOpenCloseModal(false);
+  // const openModal = (image) => {
+  //   setSelectedImage(image);
+  //   setIsModalOpen(true);
+  // };
 
-  const closeModal = () => {
-    setSelectedImage(null);
-    setIsModalOpen(false);
-  };
+  // const closeModal = () => {
+  //   setSelectedImage(null);
+  //   setIsModalOpen(false);
+  // };
 
   return (
     <>
@@ -77,17 +84,20 @@ function App() {
         position="top-center"
         reverseOrder={false}
       />
-      <SearchBar onSubmit={onSetSearchQuery} />
-      {isLoading && <Loader />}
-      {isError && <ErrorMessage />}
-      {pictures && <ImageGallery pictures={pictures} openModal={openModal} />}
-      {pictures && pictures.length !== 0 && (
-        <LoadMoreBtn onAddPage={onAddPage} />
+      <SearchBar onSubmit={onSetSearchQuery} isError={isError} />
+      {Array.isArray(images) && (
+        <ImageGallery images={images} openModal={openModal} />
       )}
+      {isError && <ErrorMessage />}
+      {isLoading && <Loader />}
+      {images && images.length !== 0 && <LoadMoreBtn onAddPage={onAddPage} />}
       <ImageModal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        selectedImage={selectedImage}
+        modalImg={modalImg}
+        isOpen={openCloseModal}
+        onCloseModal={closeModal}
+        // isOpen={modalImg}
+        // onRequestClose={closeModal}
+        // selectedImage={selectedImage}
       />
     </>
   );
